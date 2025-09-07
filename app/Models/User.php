@@ -60,6 +60,26 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, MustVerif
     // {
     //     return asset($this->avatar_url);
     // }
+    public function balance()
+    {
+        return $this->hasOne(UserBalance::class);
+    }
+
+    public function withdrawalRequests()
+    {
+        return $this->hasMany(WithdrawalRequest::class);
+    }
+
+    public function workDetails()
+    {
+        return $this->hasMany(WorkDetail::class, 'worker_id');
+    }
+
+    // Helper: Total unpaid gaji (sum income dari completed schedules)
+    public function getUnpaidSalaryAttribute()
+    {
+        return $this->workDetails()->whereHas('workSchedule', fn($q) => $q->where('status', 'completed'))->sum('income');
+    }
 
     public function getFilamentAvatarUrl(): ?string
     {

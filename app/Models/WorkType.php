@@ -18,6 +18,15 @@ class WorkType extends Model
         'description',
     ];
 
+    // relationship with work schedule
+    public function workSchedules()
+    {
+        return $this->hasMany(WorkSchedule::class);
+    }
+
+    // Casting price ke float untuk hitung
+    protected $casts = ['price' => 'float'];
+
     // add dates
     protected $dates = ['deleted_at'];
 

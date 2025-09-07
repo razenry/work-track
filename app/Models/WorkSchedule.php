@@ -12,12 +12,40 @@ class WorkSchedule extends Model
     use SoftDeletes, HasUuids;
 
     // add fillable
-    protected $fillable = [
-        'status',
-        'qty',
-        'leader_id',
-        'work_type_id',
-    ];
+
+    protected $fillable = ['status', 'qty', 'leader_id', 'work_type_id'];
+
+    public function leader()
+    {
+        return $this->belongsTo(User::class, 'leader_id');
+    }
+
+    public function workType()
+    {
+        return $this->belongsTo(WorkType::class);
+    }
+
+    public function workDetails()
+    {
+        return $this->hasMany(WorkDetail::class);
+    }
+    public function work_details()
+    {
+        return $this->hasMany(WorkDetail::class);
+    }
+
+    // Accessor untuk total income (qty * price)
+    public function getTotalIncomeAttribute()
+    {
+        return $this->qty * $this->workType->price;
+    }
+
+    // Accessor untuk income per worker (dibagi rata)
+    public function getIncomePerWorkerAttribute()
+    {
+        $workerCount = $this->workDetails()->count();  // Use () to get the relation builder and query COUNT(*)
+        return $workerCount > 0 ? $this->total_income / $workerCount : 0;
+    }
 
     // add dates
     protected $dates = ['deleted_at'];
