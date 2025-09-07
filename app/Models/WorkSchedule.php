@@ -54,4 +54,17 @@ class WorkSchedule extends Model
     protected $guarded = ['id'];
     // add hidden
     protected $hidden = ['created_at', 'updated_at'];
+
+    protected static function booted()
+    {
+        static::saved(function ($schedule) {
+            if ($schedule->status === 'completed') {
+                $schedule->workDetails->each(function ($detail) {
+                    $balance = $detail->worker->balance ?? UserBalance::create(['user_id' => $detail->worker_id, 'balance' => 0]);
+                    $balance->balance += $detail->income;
+                    $balance->save();
+                });
+            }
+        });
+    }
 }

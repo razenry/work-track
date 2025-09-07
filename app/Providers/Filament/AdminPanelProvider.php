@@ -110,6 +110,7 @@ class AdminPanelProvider extends PanelProvider
                     navigationGroup: 'Settings', // Sets the navigation group for the My Profile page (default = null)
                     hasAvatars: true, // Enables the avatar upload form component (default = false)
                     slug: 'my-profile'
+
                 )
                 ->avatarUploadComponent(fn($fileUpload) => $fileUpload->disableLabel())
                 // OR, replace with your own component
@@ -118,6 +119,7 @@ class AdminPanelProvider extends PanelProvider
                         ->image()
                         ->disk('public')
                 )
+                ->enableBrowserSessions()
                 ->enableTwoFactorAuthentication(),
         ];
 

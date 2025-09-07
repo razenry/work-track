@@ -21,7 +21,7 @@ class WorkScheduleResource extends Resource
 {
     protected static ?string $model = WorkSchedule::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
     public static function form(Form $form): Form
     {
@@ -60,7 +60,6 @@ class WorkScheduleResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
 
