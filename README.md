@@ -1,260 +1,249 @@
-# 🚀 Kaido Kit FilamentPhp Starter Code
+# Work Management System
 
-A powerful and opinionated FilamentPHP starter kit designed to accelerate your admin panel development. Kaido Kit provides a robust foundation with pre-configured plugins, configuration and best practices for building feature-rich admin interfaces.
+A comprehensive work management system built with Laravel and Filament PHP, designed to streamline work scheduling, team management, and payroll processing with an integrated withdrawal system.
 
-![GitHub stars](https://img.shields.io/github/stars/siubie/kaido-kit?style=flat-square)
-![GitHub forks](https://img.shields.io/github/forks/siubie/kaido-kit?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/siubie/kaido-kit?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
-![PHP Version](https://img.shields.io/badge/PHP-8.2-blue?style=flat-square&logo=php)
-![Laravel Version](https://img.shields.io/badge/Laravel-11.0-red?style=flat-square&logo=laravel)
-![Filament Version](https://img.shields.io/badge/Filament-3.2-purple?style=flat-square)
-## Introduction Video
-[![Build FilamentPhp Apps 10x Faster | Kaido-Kit Starter Kit (Complete Demo)](https://img.youtube.com/vi/t6q1zBqaBGU/maxresdefault.jpg)](http://www.youtube.com/watch?v=t6q1zBqaBGU "Build FilamentPhp Apps 10x Faster | Kaido-Kit Starter Kit (Complete Demo)")
-## ✨ Features
+## 🚀 Features
 
-### 🛠️ Developer Experience
+### 👥 User & Role Management
+- **Admin**: Full system access and management capabilities
+- **Leader**: Team leadership and work schedule creation
+- **Worker**: Task execution and salary withdrawal requests
 
-- ⚡ Quick CRUD generation with customized [FilamentPHP](https://filamentphp.com/) stubs
-    - Optimized UX out of the box
-    - No need to modify generated resources
-- 🔄 Auto reload on save for rapid development
-- 📚 Easy API documentation using [Scramble](https://scramble.dedoc.co/)
-- 📤 Built-in Export and Import examples in Filament resources
+### 📋 Work Management
+- **Work Types**: Categorize jobs with units and pricing
+- **Work Schedules**: Manage work assignments with status tracking (pending, in_progress, completed, cancelled)
+- **Work Details**: Track individual worker contributions and tasks
 
-### 🔐 Authentication & Authorization
+### 💰 Integrated Payroll System
+- **Worker Dashboard**: Real-time earnings overview and balance tracking
+- **Withdrawal Requests**: Workers can submit salary withdrawal requests
+- **Admin Approval**: Streamlined approval workflow with status management
+- **Transfer Proof**: Secure document upload for transaction verification
+- **Notification System**: Real-time updates for withdrawal status changes
 
-- 🛡️ Role-Based Access Control (RBAC) using [Filament Shield](https://filamentphp.com/plugins/bezhansalleh-shield)
-- 🔑 Enhanced login page with custom design
-- 🌐 Social login with Google via [Filament Socialite](https://filamentphp.com/plugins/dododedodonl-socialite)
-- 👤 User profile management with [Filament Breezy](https://filamentphp.com/plugins/jeffgreco-breezy)
-- 🔒 Instant 2-Factor Authentication capabilities
-- 👥 Simple user-to-role assignment
-- 🎭 User impersonation via [Filament Impersonate](https://filamentphp.com/plugins/joseph-szobody-impersonate)
+## 🛠️ Technology Stack
 
-### 📡 API & Integration
+- **Laravel 10.x**
+- **Filament PHP 3.x**
+- **Livewire**
+- **MySQL**
+- **Filament Shield** (Role-based access control)
+- **Spatie Laravel Permission**
 
-- 🚀 Full API support with [Filament API Service](https://filamentphp.com/plugins/rupadana-api-service)
-    - Seamlessly integrated with Shield
-    - Ready-to-use API endpoints
-- 📨 Email integration using [Resend](https://resend.com/)
-- 📝 Auto-generated API documentation
+## 📦 Installation
 
-### 📁 Media & Content Management
-
-- 🖼️ Integrated [Filament Media Library](https://filamentphp.com/plugins/filament-spatie-media-library)
-    - Easy media handling process
-    - [Spatie Media Library](https://spatie.be/docs/laravel-medialibrary) support
-
-### ⚙️ Configuration & Settings
-
-- 🎛️ Dynamic plugin management via [Filament Settings](https://filamentphp.com/plugins/filament-spatie-settings)
-    - Enable/disable features on the fly
-    - [Spatie Laravel Settings](https://github.com/spatie/laravel-settings) integration
-
-## 🚀 Quick Start
-
-1. Create new project using composer
-
-    ```php
-    composer create-project siubie/kaido-kit
-    ```
-
-2. Composer install
-
-    ```php
-    composer install
-    ```
-
-3. Npm Install
-
-    ```php
-    npm install
-    ```
-
-4. Copy .env
-
-    ```php
-    cp .env.example .env
-    ```
-
-5. Configure your database in .env
-
-    ```php
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=kaido_kit
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-
-6. Configure your google sign in cliend id and secret (optional)
-
-    ```php
-    #google auth
-    GOOGLE_CLIENT_ID=
-    GOOGLE_CLIENT_SECRET=
-    GOOGLE_REDIRECT_URI=http://localhost:8000/admin/oauth/callback/google
-    ```
-
-7. Configure your resend for email sending (optional)
-
-    ```php
-    #resend
-    MAIL_MAILER=resend
-    MAIL_HOST=127.0.0.1
-    MAIL_PORT=2525
-    MAIL_USERNAME=null
-    MAIL_PASSWORD=null
-    MAIL_ENCRYPTION=null
-    RESEND_API_KEY=
-    MAIL_FROM_ADDRESS="admin@domain.com"
-    MAIL_FROM_NAME="${APP_NAME}"
-    ```
-
-8. Migrate your database
-
-    ```php
-    php artisan migrate --seed
-    ```
-
-9. Serve the Application
-
-    ```script
-    composer run dev
-    ```
-
-11. If run successfully you will get this login interface
-
-    ![image.png](.github/images/login-screen.png)
-
-12. When signed in it will show this (not much yet but it getting there :) )
-
-    ![image.png](.github/images/after-login-without-rbac.png)
-
-13. Next step is to setup the RBAC, first generate the role and permission
-
-    ```php
-    php artisan shield:generate --all
-    ```
-
-14. It will ask which panel do you want to generate permission/policies for choose the admin panel.
-15. Setup the super admin using this command
-
-    ```php
-    php artisan shield:super-admin
-    ```
-
-    ![image.png](.github/images/provide-superadmin.png)
-
-16. Choose your super admin user and login again.
-
-    ![image.png](.github/images/after-login-rbac.png)
-
-## Running on Docker with Laravel Sail
-
-1. Clone the repository
-
+### 1. Clone Repository
 ```bash
-git clone https://github.com/siubie/kaido-kit.git
+git clone <repository-url>
+cd work-management-system
 ```
 
-2. Copy .env.example to .env
-
-```bash
-cp .env.example .env
-```
-
-3. Install dependencies
-
+### 2. Install Dependencies
 ```bash
 composer install
 ```
 
-4. Install Laravel Sail
-
+### 3. Environment Setup
 ```bash
-composer require laravel/sail --dev
-php artisan sail:install
+cp .env.example .env
+php artisan key:generate
 ```
 
-5. Run Sail
-
-```bash
-./vendor/bin/sail up -d
+### 4. Database Configuration
+Update `.env` file with your database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=work_management
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-6. Generate App Key
-
+### 5. Database Migration & Seeding
 ```bash
-./vendor/bin/sail artisan key:generate
+php artisan migrate
+php artisan db:seed
 ```
 
-7. Run migration
-
+### 6. Install Filament Shield
 ```bash
-./vendor/bin/sail artisan migrate --seed
+php artisan shield:install --fresh
 ```
 
-8. Next step is to setup the RBAC, first generate the role and permission
-
+### 7. Generate Permissions
 ```bash
-./vendor/bin/sail artisan shield:generate --all
+php artisan shield:generate
 ```
 
-9. Setup the super admin using this command
-
+### 8. Start Development Server
 ```bash
-./vendor/bin/sail artisan shield:super-admin
+php artisan serve
 ```
 
-10. Serve the Application
+Access the application at: `http://localhost:8000/admin`
 
-```bash
-./vendor/bin/sail composer run dev
-```
+## 👤 Default Login Credentials
 
-## Security
-Set your app Debug to false in .env file
-```php
-APP_NAME="Kaido-Kit"
-APP_ENV=local
-APP_KEY=base64:gWUd7RPrCZm6iu7qFddY3039BQLroNHJ0nqKcBr8eeA=
+### Administrator
+- **Email**: admin@example.com
+- **Password**: password
+
+### Team Leader
+- **Email**: leader@example.com
+- **Password**: password
+
+### Worker
+- **Email**: worker@example.com
+- **Password**: password
+
+## 📊 Database Structure
+
+### Core Tables
+- `users` - User accounts with role management
+- `work_types` - Job categories (name, unit, price, description)
+- `work_schedules` - Work assignments (status, quantity, leader, work_type)
+- `work_details` - Task specifics (worker, job description)
+- `withdrawals` - Salary withdrawal records (status, amount, transfer proof)
+
+### Relationships
+- WorkSchedule → WorkType (belongsTo)
+- WorkSchedule → User/Leader (belongsTo)
+- WorkDetail → WorkSchedule (belongsTo)
+- WorkDetail → User/Worker (belongsTo)
+- Withdrawal → User/Worker (belongsTo)
+
+## 🎯 User Guide
+
+### 1. Configure Work Types
+1. Log in as administrator
+2. Navigate to **Work Types** section
+3. Add job categories with appropriate units and pricing
+
+### 2. Create Work Schedule
+1. Log in as team leader
+2. Access **Work Schedules** menu
+3. Create new work schedule with selected work type
+4. Set quantity and initial status
+
+### 3. Assign Workers
+1. Open Work Schedule details
+2. Navigate to **Workers List** tab
+3. Add workers with job descriptions
+4. System automatically calculates individual earnings
+
+### 4. Salary Withdrawal (Worker)
+1. Log in as worker
+2. Check dashboard for earnings overview
+3. Click **Request Withdrawal** if balance available
+4. Specify amount and optional notes
+
+### 5. Withdrawal Approval (Admin)
+1. Log in as administrator
+2. Access **Withdrawals** management
+3. Review pending withdrawal requests
+4. Approve/Reject with appropriate reasons
+5. Upload transfer proof when approved
+
+## 🔐 Role-Based Access Control
+
+### Administrator
+- Full system access privileges
+- Manage work types, schedules, and withdrawals
+- Process salary withdrawal approvals
+
+### Team Leader
+- Create and manage work schedules
+- Assign workers to specific tasks
+- Monitor work progress and completion
+
+### Worker
+- View assigned tasks and responsibilities
+- Access earnings dashboard and history
+- Submit withdrawal requests
+- Track request status and history
+
+## 📝 Notification System
+
+### Administrator Notifications
+- New withdrawal request alerts
+- Pending approval reminders
+
+### Worker Notifications
+- Withdrawal status updates (approved/rejected)
+- Transfer proof upload notifications
+
+## 🚀 Production Deployment
+
+### 1. Environment Configuration
+Ensure production settings in `.env`:
+```env
+APP_ENV=production
 APP_DEBUG=false
-APP_TIMEZONE=UTC
-APP_URL=https://localhost:8000
 ```
+
+### 2. Application Optimization
+```bash
+php artisan optimize
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+### 3. Queue Worker Setup
+```bash
+# For processing notifications and background tasks
+php artisan queue:work
+```
+
+### 4. Storage Configuration
+```bash
+php artisan storage:link
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+1. **Storage permissions**
+   ```bash
+   chmod -R 775 storage
+   chmod -R 775 bootstrap/cache
+   ```
+
+2. **Class loading issues**
+   ```bash
+   composer dump-autoload
+   ```
+
+3. **Migration problems**
+   ```bash
+   php artisan migrate:fresh
+   ```
+
+### Log Files
+Check detailed errors in `storage/logs/laravel.log`
 
 ## 🤝 Contributing
 
-We welcome contributions! Please follow these steps:
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
-## 🙏 Acknowledgments
+## 📄 License
 
-- [FilamentPHP](https://filamentphp.com/)
-- [Laravel](https://laravel.com/)
-- All our amazing contributors
+This project is licensed under the [MIT License](LICENSE).
 
-## 💬 Support
+## 🆓 Support
 
-- 🐛 [Report a bug](https://github.com/siubie/kaido-kit/issues)
-- 💡 [Request a feature](https://github.com/siubie/kaido-kit/issues)
-- 📧 [Email support](mailto:putraprima@gmail.com)
-- 💬 [Discord community](https://discord.com/invite/RwqXDUJGPg)
-- 💬 [Whatsapp community](https://chat.whatsapp.com/HJtRp9Eo5wl6NhYIJbkuZL)
+For questions and support:
+- Email: support@example.com
+- Issues: [GitHub Issues](https://github.com/your-repo/issues)
 
-## ⭐ Show your support
-For Indonesian community you can get support and the recording course for how to create this kit here :
-https://www.dosenngoding.com/courses/8
+---
 
-Give a ⭐️ if this project helped you!
-## Star History
+**Security Note**: Remember to change default credentials before production deployment.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=siubie/kaido-kit&type=Date)](https://star-history.com/#siubie/kaido-kit&Date)
+---
+**Author**: Razenry
